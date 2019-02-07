@@ -23,7 +23,7 @@ from main.views import MainPageView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    path('', MainPageView.as_view(), name='index'),
+    path('', MainPageView.as_view(), name='main-page'),
 
 ]
 
