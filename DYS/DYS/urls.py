@@ -15,7 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.urls import path, re_path, include
+
+
+from main.views import MainPageView
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    path('', MainPageView.as_view(), name='index'),
+
 ]
+
+
