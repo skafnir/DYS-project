@@ -119,6 +119,9 @@ STATICFILES_DIRS = [
 ]
 
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
 
 try:
     from DYS.local_settings import DATABASES

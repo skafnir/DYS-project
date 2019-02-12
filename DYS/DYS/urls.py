@@ -22,6 +22,8 @@ from main.views import MainPageView, RegisterView, LoginView, DashboardView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('accounts.urls'))
     path('', MainPageView.as_view(), name='main-page'),
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(), name='login'),
