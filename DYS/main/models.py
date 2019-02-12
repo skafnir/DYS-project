@@ -7,7 +7,6 @@ from django.db import models
 
 class UserExtended(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # Needed?
     city = models.CharField(max_length=64)
     street = models.CharField(max_length=64)
     postal_code = models.CharField(max_length=5)
@@ -23,7 +22,7 @@ class TypeOf(models.Model):
 class Organization(models.Model):
     name = models.CharField(max_length=64)
     city = models.CharField(max_length=64)
-    type_of = models.ManyToManyField(TypeOf, on_delete=models.CASCADE)
+    type_of = models.ManyToManyField(TypeOf)
 
 
 class Donation(models.Model):
@@ -38,5 +37,5 @@ class Donation(models.Model):
     date = models.DateField()
     time = models.TimeField()
     extra_info = models.TextField(blank=True, null=True)
-    type_of = models.ManyToManyField(TypeOf, on_delete=models.CASCADE)
+    type_of = models.ManyToManyField(TypeOf)
 
