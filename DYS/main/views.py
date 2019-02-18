@@ -1,5 +1,6 @@
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from django.views import View
@@ -10,14 +11,12 @@ from main.forms import LoginForm
 class MainPageView(View):
 
     def get(self, request):
-
         return render(request, 'main/index.html')
 
 
 class RegisterView(View):
 
     def get(self, request):
-
         return render(request, 'main/register.html')
 
 
@@ -48,7 +47,37 @@ class LogoutView(View):
 class DashboardView(LoginRequiredMixin, View):
 
     def get(self, request):
-
         return render(request, 'main/form.html')
 
 
+class RegisterView(View):
+
+    def get(self, request):
+        return render(request, 'main/register.html')
+
+    def post(self, request):
+        username = request.POST.get("login")
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirmPassword = request.POST.get('password2')
+        users = User.objects.all()
+        usernames = []
+        emails = []
+        for i in users:
+            emails.append(i.email)
+            usernames.append(i.username)
+        if username and email and password and confirmPassword and password == confirmPassword:
+            if username in usernames:
+                text = 'Podany użytkownik już istnieje'
+                return render(request, 'main/register.html', {"text": text})
+            elif email in emails:
+                text = 'Podany email już istnieje'
+                return render(request, 'main/register.html', {"text": text})
+            else:
+                User.objects.create_user(username=username,
+                                         email=email,
+                                         password=password,
+                                         )
+                return redirect('login')
+        text = 'Żle powtórzone hasło'
+        return render(request, 'app/register.html', {"text": text})
