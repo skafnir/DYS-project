@@ -56,6 +56,8 @@ class RegisterView(View):
         return render(request, 'main/register.html')
 
     def post(self, request):
+        name = request.POST.get('name')
+        surname = request.POST.get('surname')
         username = request.POST.get("login")
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -66,7 +68,7 @@ class RegisterView(View):
         for i in users:
             emails.append(i.email)
             usernames.append(i.username)
-        if username and email and password and confirmPassword and password == confirmPassword:
+        if name and surname and username and email and password and confirmPassword and password == confirmPassword:
             if username in usernames:
                 text = 'Podany użytkownik już istnieje'
                 return render(request, 'main/register.html', {"text": text})
@@ -74,7 +76,9 @@ class RegisterView(View):
                 text = 'Podany email już istnieje'
                 return render(request, 'main/register.html', {"text": text})
             else:
-                User.objects.create_user(username=username,
+                User.objects.create_user(first_name=name,
+                                         last_name=surname,
+                                         username=username,
                                          email=email,
                                          password=password,
                                          )
