@@ -7,9 +7,9 @@ from django.db import models
 
 class UserExtended(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    city = models.CharField(max_length=64)
-    street = models.CharField(max_length=64)
-    postal_code = models.CharField(max_length=5)
+    city = models.CharField(max_length=64, blank=True)
+    street = models.CharField(max_length=64, blank=True)
+    postal_code = models.CharField(max_length=5, blank=True)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                  message="Numer musi być w formacie: '+999999999'. Do 15 cyfr.")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
