@@ -18,16 +18,16 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 
 
-from main.views import MainPageView, RegisterView, LoginView, DashboardView, LogoutView
+from main.views import MainPageView, RegisterView, LoginView, DashboardView, LogoutView, ProfileView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
     path('', MainPageView.as_view(), name='main-page'),
     path('register/', RegisterView.as_view(), name='register'),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('accounts/logout/', LogoutView.as_view(), name='logout'),
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
+    path('profile/', ProfileView.as_view(), name='profile'),
 
 
 ]
