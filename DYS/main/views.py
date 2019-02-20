@@ -23,11 +23,14 @@ class LoginView(View):
     def post(self, request):
         form = LoginForm(request.POST)
         if form.is_valid():
-            user = authenticate(username=form['login'].value(),
-                                password=form['password'].value())
+            user = authenticate(username=form.cleaned_data['login'],
+                                password=form.cleaned_data['password'])
             if user:
                 login(request, user)
+                if user.is_staff:
+                    return redirect('/admin/')
                 return redirect('dashboard')
+
         return render(request, 'main/login.html')
 
 
