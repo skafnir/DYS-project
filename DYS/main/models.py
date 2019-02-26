@@ -26,7 +26,15 @@ class Organization(models.Model):
 
 
 class Donation(models.Model):
-    what_things = models.CharField(max_length=64)
+    WHAT_THINGS = (
+        (1, "ubrania, które nadają się do ponownego użycia"),
+        (2, "ubrania, do wyrzucenia"),
+        (3, "zabawki"),
+        (4, "książki"),
+        (4, "inne")
+    )
+
+    what_things = models.IntegerField(choices=WHAT_THINGS)
     amount = models.IntegerField()
     city = models.CharField(max_length=64)
     street = models.CharField(max_length=64)

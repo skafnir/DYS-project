@@ -2,6 +2,7 @@ from django.contrib.auth import login, authenticate, logout, update_session_auth
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from formtools.wizard.views import SessionWizardView
 
 from django.views import View
 
@@ -128,3 +129,10 @@ class ProfileView(LoginRequiredMixin, View):
             return render(request, 'main/profile.html', {"text2": text2})
         text2 = 'Hasła niezgodne lub pole pozostawione puste'
         return render(request, 'main/profile.html', {"text2": text2})
+
+
+class DonationWizard(SessionWizardView):
+    def done(self, form_list, **kwargs):
+        do_something_with_the_form_data(form_list)
+        return redirect('/page-to-redirect-to-when-done/')
+
